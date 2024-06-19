@@ -102,7 +102,7 @@
           <app-error field-error>{{ERROR_TEXT.emailFormat}}</app-error>
         }
         @else if( formGroup.get('email')?.touched && formGroup.get('email')?.hasError('maxlength')){
-          <app-error field-error>{{ERROR_TEXT.maxLength}} {{formGroup.get('firstName')?.getError('maxlength')?.requiredLength}}</app-error>
+          <app-error field-error>{{ERROR_TEXT.maxLength}} {{formGroup.get('email')?.getError('maxlength')?.requiredLength}}</app-error>
         }
         
     </app-form-field>
