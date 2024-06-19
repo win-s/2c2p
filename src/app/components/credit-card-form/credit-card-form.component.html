@@ -1,0 +1,122 @@
+<form [formGroup]="formGroup" class="grid grid-cols-1 gap-x-6 gap-y-8 ">
+    <app-form-field class="w-full">
+        <app-form-field-label field-label forName="cardType">Card Types:</app-form-field-label>
+  
+        <app-form-field-dropdown 
+            field-input
+            name="cardType"
+            [formGroup]="formGroup"
+            ></app-form-field-dropdown>
+        
+        @if( formGroup.get('cardType')?.touched && formGroup.get('cardType')?.hasError(SELECTED_DROPDOWN_ERROR)){
+            <app-error field-error>{{ERROR_TEXT.required}}</app-error>
+        }
+    </app-form-field>
+
+    <app-form-field class="w-full">
+        <app-form-field-label field-label forName="cardNumber">Card Number:</app-form-field-label>
+  
+        <app-form-field-text-permit
+          field-input
+          name="cardNumber" 
+          type="text"
+          [maxLength]="16"
+          [placeholder]="cardNumberPlaceHolder"
+          pattern="numbers"
+          [formGroup]="formGroup"></app-form-field-text-permit>
+        
+        @if( formGroup.get('cardNumber')?.touched && formGroup.get('cardNumber')?.hasError('required')){
+            <app-error field-error>{{ERROR_TEXT.required}}</app-error>
+        }
+        @else if( formGroup.get('cardNumber')?.touched && formGroup.get('cardNumber')?.hasError('maxlength')){
+            <app-error field-error>Should have {{formGroup.get('cardNumber')?.getError('maxlength')?.requiredLength}} digits</app-error>
+        }
+        @else if( formGroup.get('cardNumber')?.touched && formGroup.get('cardNumber')?.hasError('minlength')){
+            <app-error field-error>Should have {{formGroup.get('cardNumber')?.getError('minlength')?.requiredLength}} digits</app-error>
+        }
+        
+    </app-form-field>
+  
+
+    <app-form-field class="w-full">
+        <app-form-field-label field-label forName="cardNumber">Expiry:</app-form-field-label>
+  
+        <app-form-field-text-permit
+          field-input
+
+          name="expiry" 
+          type="text"
+          pattern="monthYear"
+          placeholder="MM/YY"
+          class="w-1/3"
+
+          [maxLength]="5"
+          [formGroup]="formGroup"></app-form-field-text-permit>
+        
+        @if( formGroup.get('expiry')?.touched && formGroup.get('expiry')?.hasError('required')){
+            <app-error field-error>{{ERROR_TEXT.required}}</app-error>
+        }
+        @else if( formGroup.get('expiry')?.touched && formGroup.get('expiry')?.hasError('maxlength')){
+            <app-error field-error>{{ERROR_TEXT.maxLength}} {{formGroup.get('expiry')?.getError('maxlength')?.requiredLength}}</app-error>
+        }
+        @else if( formGroup.get('expiry')?.touched && formGroup.get('expiry')?.hasError(EXPIRY_FORMAT_ERROR)){
+            <app-error field-error>{{ERROR_TEXT.expiryFormat}}</app-error>
+        }
+        @else if( formGroup.get('expiry')?.touched && formGroup.get('expiry')?.hasError(EXPIRY_IN_PAST_ERROR)){
+            <app-error field-error>{{ERROR_TEXT.expiryInPast}}</app-error>
+        }
+        @else if( formGroup.get('expiry')?.touched && formGroup.get('expiry')?.hasError(EXPIRY_NOT_EXIST_ERROR)){
+            <app-error field-error>{{ERROR_TEXT.expiryNotExist}}</app-error>
+        }
+        
+    </app-form-field>
+
+    <app-form-field class="w-full">
+      <app-form-field-label field-label forName="email">Name:</app-form-field-label>
+
+      <app-form-field-text-permit
+        field-input
+        name="fullName"
+        pattern="alphaSpace"
+        placeholder="Full Name"
+        type="text"
+        [formGroup]="formGroup"></app-form-field-text-permit>
+      @if( formGroup.get('fullName')?.hasError('maxlength')){
+        <app-error field-error>{{ERROR_TEXT.maxLength}} {{formGroup.get('fullName')?.getError('maxlength')?.requiredLength}}</app-error>
+      }
+      @else if( formGroup.get('fullName')?.touched && formGroup.get('fullName')?.hasError('required')){
+        <app-error field-error>{{ERROR_TEXT.required}}</app-error>
+      }
+    </app-form-field>
+
+    <app-form-field class="w-full">
+        <app-form-field-label field-label forName="email">Email:</app-form-field-label>
+  
+        <app-form-field-email 
+          field-input
+          name="email" 
+          type="text"
+          [formGroup]="formGroup"></app-form-field-email>
+        
+        @if( formGroup.get('email')?.touched && formGroup.get('email')?.hasError(EMAIL_FORMAT_ERROR)){
+          <app-error field-error>{{ERROR_TEXT.emailFormat}}</app-error>
+        }
+        @else if( formGroup.get('email')?.touched && formGroup.get('email')?.hasError('maxlength')){
+          <app-error field-error>{{ERROR_TEXT.maxLength}} {{formGroup.get('firstName')?.getError('maxlength')?.requiredLength}}</app-error>
+        }
+        
+    </app-form-field>
+    <app-form-field class="w-full">
+        <button 
+            field-input
+
+            (click)="onSubmit()"
+
+            type="submit"
+            [disabled]="submiting"
+            class="bg-blue-500 disabled:bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full md:w-auto" type="button">
+            Confirm Payment
+        </button>   
+    </app-form-field>
+
+  </form>
