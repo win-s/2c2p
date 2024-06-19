@@ -27,7 +27,6 @@ import { ReactiveFormsModule, FormGroup } from '@angular/forms';
       }
     </select>
   `,
-  styleUrl: './form-field-dropdown.component.css'
 })
 export class FormFieldDropdownComponent implements OnInit {
 

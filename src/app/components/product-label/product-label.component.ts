@@ -19,7 +19,7 @@ import { CustomCurrencyPipe } from '../../pipes/custom-currency.pipe';
       </p>
     </div>
   `,
-  styleUrl: './product-label.component.css'
+
 })
 export class ProductLabelComponent {
   product = input.required<string>();
